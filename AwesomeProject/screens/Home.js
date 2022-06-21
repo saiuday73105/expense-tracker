@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import {
     SafeAreaView,
     StyleSheet,
@@ -11,13 +11,18 @@ import {
     TouchableOpacity,
     FlatList,
     Animated,
-    Platform
+    Platform,
+    Button
 } from 'react-native';
 import { VictoryPie } from 'victory-native';
 
 import {Svg} from 'react-native-svg';
 
 import { COLORS, FONTS, SIZES, icons, images } from '../constants';
+
+import { Menu, MenuItem, MenuDivider } from "react-native-material-menu";
+import { useNavigation } from '@react-navigation/native';
+
 
 const Home = () => {
 
@@ -230,20 +235,39 @@ const Home = () => {
     const [showMoreToggle, setShowMoreToggle] = React.useState(false)
 
     function renderNavBar() {
+        const navigation = useNavigation();
+        const [visible, setVisible] = useState(false);
+        let toggle = () => setVisible(!visible);
+        let addExpensePage = () => {
+            setVisible(!visible);
+            navigation.navigate('AddExpense');
+        }
+
+        let addCategoryPage = () => {
+            setVisible(!visible);
+            navigation.navigate('AddCategory');
+        }
+
+        let aboutUsPage = () => {
+            setVisible(!visible);
+            navigation.navigate('AboutUs');
+        }
+        
         return (
             <View
                 style={{
                     flexDirection: 'row',
-                    height: 80,
+                    height: 70,
                     justifyContent: 'space-between',
                     alignItems: 'flex-end',
                     paddingHorizontal: SIZES.padding,
                     backgroundColor: COLORS.white,
                 }}
             >
-                <TouchableOpacity
+                {/* <TouchableOpacity
                     style={{ justifyContent: 'center', width: 50, }}
-                    onPress={() => console.log('Go Back')}
+                    // onPress={() => console.log('Go Back')}
+                    onPress={() => navigation.goBack()}
                 >
                     <Image
                         source={icons.back_arrow}
@@ -253,11 +277,12 @@ const Home = () => {
                             tintColor: COLORS.primary
                         }}
                     />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
 
                 <TouchableOpacity
-                    style={{ justifyContent: 'center', alignItems: 'flex-end', width: 50 }}
-                    onPress={() => console.log('More')}
+                    style={{ justifyContent: 'center', alignItems: 'flex-end', width: 350 }}
+                    // onPress={() => console.log('More')}
+                    onPress={toggle}
                 >
                     <Image
                         source={icons.more}
@@ -268,6 +293,17 @@ const Home = () => {
                         }}
                     />
                 </TouchableOpacity>
+                <Menu
+                    visible={visible}
+                    // anchor={<Text onPress={toggle}>Menu</Text>}
+                    
+                    onRequestClose={toggle}>
+                    <MenuItem onPress={addExpensePage}>Add Expense</MenuItem>
+                    <MenuItem onPress={addCategoryPage}>Add Category</MenuItem>
+                    <MenuItem disabled>Disabled item</MenuItem>
+                    <MenuDivider/>
+                    <MenuItem onPress={aboutUsPage}>About Us</MenuItem>
+                </Menu>
             </View>
         )
     }
@@ -606,7 +642,7 @@ const Home = () => {
         let totalExpenseCount = chartData.reduce((a, b) => a + (b.expenseCount || 0), 0)
 
         console.log("Check Chart")
-        console.log(chartData)
+        // console.log(chartData)
 
         if(Platform.OS == 'ios')
         {

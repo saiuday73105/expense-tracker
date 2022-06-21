@@ -26,7 +26,9 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 
-import { Home } from "./screens/";
+import { Home, AddExpense, AddCategory, AboutUs } from "./screens/";
+// import AboutUs from "./screens/AboutUs";
+// import { AddExpense } from "./screens/";
 
 const theme = {
   ...DefaultTheme,
@@ -48,9 +50,15 @@ const App = () => {
           initialRouteName={'Home'}
         >
           <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="AddExpense" component={AddExpense} />
+          <Stack.Screen name="AddCategory" component={AddCategory} />
+          <Stack.Screen name="AboutUs" component={AboutUs} />
         </Stack.Navigator>
       </NavigationContainer>
   )
 }
 
-export default App;
+// export default App;
+export default () => {
+  return <App />;
+}

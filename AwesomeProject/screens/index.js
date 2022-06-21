@@ -1,5 +1,11 @@
 import Home from './Home';
+import AddExpense from './AddExpense';
+import AddCategory from './AddCategory';
+import AboutUs from './AboutUs';
 
 export {
-    Home
-};
+    Home,
+    AddExpense,
+    AddCategory,
+    AboutUs
+}
