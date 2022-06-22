@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, TextInput, StyleSheet} from 'react-native';
 import { COLORS } from '../constants';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/FontAwesome';
 const Input = ({
   label,
   iconName,
@@ -45,7 +45,7 @@ const Input = ({
         {password && (
           <Icon
             onPress={() => setHidePassword(!hidePassword)}
-            name={hidePassword ? 'eye-outline' : 'eye-off-outline'}
+            name={hidePassword ? 'eye' : 'eye-slash'}
             style={{color: COLORS.darkBlue, fontSize: 22}}
           />
         )}

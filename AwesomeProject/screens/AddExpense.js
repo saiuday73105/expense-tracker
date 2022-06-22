@@ -8,7 +8,8 @@ import { StyleSheet,
   SafeAreaView,
   Keyboard,
   ScrollView,
-  Alert, 
+  Alert,
+  TextInput,
 } from 'react-native';
 
 import { COLORS, FONTS, SIZES, icons, images } from '../constants';
@@ -17,7 +18,7 @@ import Button from '../components/Button';
 import Input from '../components/Input';
 import Loader from '../components/Loader';
 
-
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 function renderNavBar(navigation) {
     return(
@@ -117,37 +118,43 @@ const RegistrationScreen = (navigation) => {
     <SafeAreaView style={{backgroundColor: COLORS.white, flex: 1}}>
       <Loader visible={loading} />
       <ScrollView
-        contentContainerStyle={{paddingTop: 20, paddingHorizontal: 20}}>
-        <Text style={{color: COLORS.black, fontSize: 40, fontWeight: 'bold'}}>
-          Register
+        contentContainerStyle={{ 
+          paddingHorizontal: SIZES.padding, 
+          paddingVertical: SIZES.padding, 
+          backgroundColor: COLORS.white}}
+        >
+        <Text style={{color: COLORS.primary, ...FONTS.h2}}>
+          Add New Expense
         </Text>
-        <Text style={{color: COLORS.grey, fontSize: 18, marginVertical: 10}}>
-          Enter Your Details to Register
+        <Text style={{...FONTS.h3, color: COLORS.darkgray, marginVertical: 10}}>
+          Enter your details of the expense
         </Text>
         <View style={{marginVertical: 20}}>
           <Input
-            onChangeText={text => handleOnchange(text, 'email')}
-            onFocus={() => handleError(null, 'email')}
-            iconName="email-outline"
-            label="Email"
-            placeholder="Enter your email address"
-            error={errors.email}
+            onChangeText={text => handleOnchange(text, 'amount')}
+            onFocus={() => handleError(null, 'amount')}
+            iconName="dollar"
+            label="Amount"
+            placeholder="Enter the transaction value"
+            error={errors.amount}
           />
 
           <Input
-            onChangeText={text => handleOnchange(text, 'fullname')}
-            onFocus={() => handleError(null, 'fullname')}
-            iconName="account-outline"
-            label="Full Name"
-            placeholder="Enter your full name"
-            error={errors.fullname}
+            onChangeText={text => handleOnchange(text, 'expenseTitle')}
+            onFocus={() => handleError(null, 'expenseTitle')}
+            // iconName="account-outline"
+            iconName="pencil"
+            label="Expense Title"
+            placeholder="Enter your expense title"
+            error={errors.expenseTitle}
           />
 
           <Input
             keyboardType="numeric"
             onChangeText={text => handleOnchange(text, 'phone')}
             onFocus={() => handleError(null, 'phone')}
-            iconName="phone-outline"
+            // iconName="phone-outline"
+            iconName="dollar"
             label="Phone Number"
             placeholder="Enter your phone no"
             error={errors.phone}
@@ -155,13 +162,14 @@ const RegistrationScreen = (navigation) => {
           <Input
             onChangeText={text => handleOnchange(text, 'password')}
             onFocus={() => handleError(null, 'password')}
-            iconName="lock-outline"
+            // iconName="lock-outline"
+            iconName="dollar"
             label="Password"
             placeholder="Enter your password"
             error={errors.password}
             password
           />
-          <Button title="Register " onPress={validate} />
+          <Button title="Submit " onPress={validate} />
           <Text
             onPress={() => navigation.navigate('LoginScreen')}
             style={{
@@ -170,7 +178,7 @@ const RegistrationScreen = (navigation) => {
               textAlign: 'center',
               fontSize: 16,
             }}>
-            Already have account ?Login
+            Already have account? Login
           </Text>
         </View>
       </ScrollView>
