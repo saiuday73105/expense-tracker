@@ -12,6 +12,7 @@ export const more = require("../assets/icons/more_icon.png");
 export const pin = require("../assets/icons/pin.png");
 export const sports_icon = require("../assets/icons/sports_icon.png");
 export const up_arrow = require("../assets/icons/up_arrow.png");
+// export const date_icon = require("../assets/icons/date_icon.png");
 
 export default {
     baby_car,
@@ -27,5 +28,6 @@ export default {
     more,
     pin,
     sports_icon,
-    up_arrow
+    up_arrow,
+    // date_icon
 }

@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, 
   Text, 
   View, 
@@ -14,11 +14,71 @@ import { StyleSheet,
 
 import { COLORS, FONTS, SIZES, icons, images } from '../constants';
 import { useNavigation } from '@react-navigation/native';
+
 import Button from '../components/Button';
 import Input from '../components/Input';
 import Loader from '../components/Loader';
+import DatePicker from '../components/DatePicker';
+import Places from '../components/Places';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
+import SelectList from 'react-native-dropdown-select-list';
+
+const K_OPTIONS = [
+  {
+    value: 'Juventus',
+    key: 'JUVE',
+  },
+  {
+    value: 'Real Madrid',
+    key: 'RM',
+  },
+  {
+    value: 'Barcelona',
+    key: 'BR',
+  },
+  {
+    value: 'PSG',
+    key: 'PSG',
+  },
+  {
+    value: 'FC Bayern Munich',
+    key: 'FBM',
+  },
+  {
+    value: 'Manchester United FC',
+    key: 'MUN',
+  },
+  {
+    value: 'Manchester City FC',
+    key: 'MCI',
+  },
+  {
+    value: 'Everton FC',
+    key: 'EVE',
+  },
+  {
+    value: 'Tottenham Hotspur FC',
+    key: 'TOT',
+  },
+  {
+    value: 'Chelsea FC',
+    key: 'CHE',
+  },
+  {
+    value: 'Liverpool FC',
+    key: 'LIV',
+  },
+  {
+    value: 'Arsenal FC',
+    key: 'ARS',
+  },
+
+  {
+    value: 'Leicester City FC',
+    key: 'LEI',
+  },
+]
 
 function renderNavBar(navigation) {
     return(
@@ -60,15 +120,17 @@ const RegistrationScreen = (navigation) => {
   const [errors, setErrors] = React.useState({});
   const [loading, setLoading] = React.useState(false);
 
+  const [selected, setSelected] = React.useState("");
+ 
   const validate = () => {
     Keyboard.dismiss();
     let isValid = true;
 
-    if (!inputs.email) {
-      handleError('Please input email', 'email');
+    if (!inputs.amount) {
+      handleError('Please input amount', 'amount');
       isValid = false;
-    } else if (!inputs.email.match(/\S+@\S+\.\S+/)) {
-      handleError('Please input a valid email', 'email');
+    } else if (!inputs.amount.match(/^[0-9]\d*(\.\d+)?$/)) {
+      handleError('Please input a valid amount', 'amount');
       isValid = false;
     }
 
@@ -122,18 +184,20 @@ const RegistrationScreen = (navigation) => {
           paddingHorizontal: SIZES.padding, 
           paddingVertical: SIZES.padding, 
           backgroundColor: COLORS.white}}
+        nestedScrollEnabled={true}
         >
         <Text style={{color: COLORS.primary, ...FONTS.h2}}>
           Add New Expense
         </Text>
-        <Text style={{...FONTS.h3, color: COLORS.darkgray, marginVertical: 10}}>
+        <Text style={{...FONTS.h3, color: COLORS.darkgray, marginVertical:10}}>
           Enter your details of the expense
         </Text>
-        <View style={{marginVertical: 20}}>
+        <View style={{marginVertical: 10}}>
           <Input
             onChangeText={text => handleOnchange(text, 'amount')}
             onFocus={() => handleError(null, 'amount')}
-            iconName="dollar"
+            // iconName="dollar"
+            uri="https://cdn-icons.flaticon.com/png/512/2530/premium/2530093.png?token=exp=1656166997~hmac=bce8aa6d250c91480c7187f0632ae346"
             label="Amount"
             placeholder="Enter the transaction value"
             error={errors.amount}
@@ -143,23 +207,32 @@ const RegistrationScreen = (navigation) => {
             onChangeText={text => handleOnchange(text, 'expenseTitle')}
             onFocus={() => handleError(null, 'expenseTitle')}
             // iconName="account-outline"
-            iconName="pencil"
-            label="Expense Title"
-            placeholder="Enter your expense title"
+            // iconName="pencil"
+            uri="https://cdn-icons-png.flaticon.com/512/2799/2799932.png"
+            label="Title"
+            placeholder="Enter expense name"
             error={errors.expenseTitle}
           />
 
-          <Input
-            keyboardType="numeric"
-            onChangeText={text => handleOnchange(text, 'phone')}
-            onFocus={() => handleError(null, 'phone')}
-            // iconName="phone-outline"
-            iconName="dollar"
-            label="Phone Number"
-            placeholder="Enter your phone no"
-            error={errors.phone}
+          <Text style={{paddingBottom: 5, ...FONTS.h3, color: COLORS.darkgray}}>Category</Text>
+          <SelectList 
+            placeholder="Select category" 
+            setSelected={setSelected}
+            data={K_OPTIONS}
+            inputStyles={{opacity: 1}}
+            />
+
+          <Text style={{paddingBottom: 0}}></Text>
+
+          <DatePicker
+            label="Date"
           />
-          <Input
+
+          <Places
+            label="Location"
+          />
+
+          {/* <Input
             onChangeText={text => handleOnchange(text, 'password')}
             onFocus={() => handleError(null, 'password')}
             // iconName="lock-outline"
@@ -168,9 +241,12 @@ const RegistrationScreen = (navigation) => {
             placeholder="Enter your password"
             error={errors.password}
             password
-          />
-          <Button title="Submit " onPress={validate} />
-          <Text
+          /> */}
+          {/* <Button title="Submit " onPress={validate} style={{borderRadius: 10}} /> */}
+          <TouchableOpacity onPress={validate} style={styles.button}>
+            <Text style={styles.buttonText}>SUBMIT</Text>
+          </TouchableOpacity>
+          {/* <Text
             onPress={() => navigation.navigate('LoginScreen')}
             style={{
               color: COLORS.black,
@@ -179,7 +255,7 @@ const RegistrationScreen = (navigation) => {
               fontSize: 16,
             }}>
             Already have account? Login
-          </Text>
+          </Text> */}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -205,6 +281,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  button: {
+    backgroundColor: "dodgerblue",
+    padding: 20,
+    borderRadius: 10,
+  },
+  buttonText: {
+    color: "white",
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 15,
+  }
 });
 
 export default AddExpense;
