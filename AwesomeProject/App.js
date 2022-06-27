@@ -26,7 +26,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 
-import { Home, AddExpense, AddCategory, AboutUs } from "./screens/";
+import { Home, AddExpense, AboutUs, AddNewIncome, TransactionHistory } from "./screens/";
 // import AboutUs from "./screens/AboutUs";
 // import { AddExpense } from "./screens/";
 
@@ -51,7 +51,8 @@ const App = () => {
         >
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="AddExpense" component={AddExpense} />
-          <Stack.Screen name="AddCategory" component={AddCategory} />
+          <Stack.Screen name="AddNewIncome" component={AddNewIncome} />
+          <Stack.Screen name="TransactionHistory" component={TransactionHistory} />
           <Stack.Screen name="AboutUs" component={AboutUs} />
         </Stack.Navigator>
       </NavigationContainer>

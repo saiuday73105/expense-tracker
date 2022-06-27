@@ -243,9 +243,14 @@ const Home = () => {
             navigation.navigate('AddExpense');
         }
 
-        let addCategoryPage = () => {
+        let addIncomePage = () => {
             setVisible(!visible);
-            navigation.navigate('AddCategory');
+            navigation.navigate('AddNewIncome');
+        }
+
+        let transactionHistoryPage = () => {
+            setVisible(!visible);
+            navigation.navigate('TransactionHistory');
         }
 
         let aboutUsPage = () => {
@@ -299,7 +304,8 @@ const Home = () => {
                     
                     onRequestClose={toggle}>
                     <MenuItem onPress={addExpensePage}>Add Expense</MenuItem>
-                    <MenuItem onPress={addCategoryPage}>Add Category</MenuItem>
+                    <MenuItem onPress={addIncomePage}>Add Income</MenuItem>
+                    <MenuItem onPress={transactionHistoryPage}>Transaction History</MenuItem>
                     <MenuItem disabled>Disabled item</MenuItem>
                     <MenuDivider/>
                     <MenuItem onPress={aboutUsPage}>About Us</MenuItem>
