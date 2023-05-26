@@ -4,6 +4,6 @@ The aim of this project is to create a cross-platform application that can track
 
 <br>
 <p align="center">
-![alt text](https://github.com/saiuday73105/expense-tracker/blob/main/expensetracker.png?raw=true)
+<img src="https://github.com/saiuday73105/expense-tracker/blob/main/expensetracker.png" width="680" height="650">
 </p>
 <br>
